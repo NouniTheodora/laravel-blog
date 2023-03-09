@@ -1,16 +1,9 @@
 <title>My Blog</title>
 
 <body>
-    <article>
-        <h1><a href="/articles/article-1">Article 1</a></h1>
-        <p>
-            wrfw
-        </p>
-    </article>
-    <article>
-        <h1><a href="/articles/article-2">Article 2</a></h1>
-        <p>
-            wrfw
-        </p>
-    </article>
+    <?php foreach ($articles as $article) : ?>
+         <article>
+             <a href="<?php echo $article->slug ?>"> <?php echo $article->title; ?> </a>
+         </article>
+     <?php endforeach; ?>
 </body>
