@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
@@ -23,14 +23,15 @@ Route::get('/articles', function () {
 
 // Whatever is passed in the url - the same value is passed as a parameter in the function as well
 Route::get('/articles/{article_slug}', function ($article_slug) {
-    $path = __DIR__ . '/../resources/articles/' . $article_slug . '.html';
-
-    if (!file_exists($path)) {
+    if (!file_exists($path = __DIR__ . "/../resources/articles/{$article_slug}.html")) {
         // or abort(404);
         return redirect('/');
     }
 
-    $article = file_get_contents($path);
+    // keep the file in cache for 20 minutes & retrieve it from there instead of running the code
+    $article = cache()->remember("articles.{$article_slug}", now()->addMinutes(20), function() use ($path) {
+        return file_get_contents($path);
+    });
 
     return view('article', [
         'article' => $article
