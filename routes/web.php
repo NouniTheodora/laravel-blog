@@ -30,7 +30,7 @@ Route::get('/articles/{article_slug}', function ($article_slug) {
     return view('article', [
         'article'   => Article::findArticleBySlug($article_slug)
     ]);
-})->where('article_slug', '[0-9A-z_\-]+'); // validate the slug - only numbers, letters, underscores & dashes
+});
 
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');

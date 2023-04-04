@@ -2,6 +2,7 @@
 
  namespace App\Models;
 
+ use Illuminate\Database\Eloquent\ModelNotFoundException;
  use Illuminate\Support\Facades\File;
  use Spatie\YamlFrontMatter\YamlFrontMatter;
 
@@ -24,16 +25,13 @@
 
      public static function findArticleBySlug(string $article_slug)
      {
- //        if (!file_exists($path = base_path() . "/resources/articles/{$article_slug}.html")) {
- //            // or abort(404);
- //            throw new ModelNotFoundException();
- //        }
- //
- //        // keep the file in cache for 20 minutes & retrieve it from there instead of running the code
- //        return cache()->remember("articles.{$article_slug}", now()->addMinutes(20), function() use ($path) {
- //            return file_get_contents($path);
- //        });
-         return static::fetchAllArticles()->firstWhere('slug', $article_slug);
+        $article = static::fetchAllArticles()->firstWhere('slug', $article_slug);
+    
+        if (is_null($article)) {
+            throw new ModelNotFoundException();
+        }
+
+        return $article;
      }
 
      public static function fetchAllArticles()
