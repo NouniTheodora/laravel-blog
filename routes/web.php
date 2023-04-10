@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,12 @@ Route::get('/articles', function () {
 Route::get('/articles/{article:slug}', function (Article $article) { // Post::where('slug',  $post)->firstOrFail();
     return view('article', [
         'article'   => $article
+    ]);
+});
+
+Route::get('/category/{category:slug}', function (Category $category) {
+    return view('articles', [
+        'articles'  => $category->posts
     ]);
 });
 

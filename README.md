@@ -13,6 +13,9 @@ php arisan make:migration create_posts_table --> create a new migration file
 ## Eloquent Models
 php artisan make:model Article
 
+## Create a model & it's migration
+php artisan make:model Category -m
+
 ## Tinker
 Use Tinker to create a new db record by using an Eloquent model (Active Record Pattern)
 

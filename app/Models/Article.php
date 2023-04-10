@@ -20,10 +20,14 @@ class Article extends Model
     // ];
 
     // 2nd way: Everything is fillable, except whatever is included in the $guarded.
-    // protected $guarded = [
-    //     'id'
-    // ];
+    protected $guarded = [];
 
     // 3rd way: Skip it entirely - avoid using arrays that come from forms to functions like create()
     // or update()
+
+    public function category() // I can access it as a property
+    {
+        // Relationships: hasOne, hasMany, belongsTo, belongsToMany
+        return $this->belongsTo(Category::class);
+    }
 }
