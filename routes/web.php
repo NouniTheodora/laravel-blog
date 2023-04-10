@@ -21,14 +21,14 @@ Route::get('/', function () {
 
 Route::get('/articles', function () {
     return view('articles', [
-        'articles' => Article::fetchAllArticles()
+        'articles' => Article::all()
     ]);
 });
 
 // Whatever is passed in the url - the same value is passed as a parameter in the function as well
-Route::get('/articles/{article_slug}', function ($article_slug) {
+Route::get('/articles/{id}', function ($id) {
     return view('article', [
-        'article'   => Article::findArticleBySlug($article_slug)
+        'article'   => Article::find($id)
     ]);
 });
 
