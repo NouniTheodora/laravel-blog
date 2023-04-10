@@ -25,10 +25,9 @@ Route::get('/articles', function () {
     ]);
 });
 
-// Whatever is passed in the url - the same value is passed as a parameter in the function as well
-Route::get('/articles/{id}', function ($id) {
+Route::get('/articles/{article:slug}', function (Article $article) { // Post::where('slug',  $post)->firstOrFail();
     return view('article', [
-        'article'   => Article::find($id)
+        'article'   => $article
     ]);
 });
 
