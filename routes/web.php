@@ -21,8 +21,9 @@ Route::get('/', function () {
 });
 
 Route::get('/articles', function () {
+    
     return view('articles', [
-        'articles' => Article::all()
+        'articles' => Article::with('category')->get()
     ]);
 });
 
@@ -32,7 +33,7 @@ Route::get('/articles/{article:slug}', function (Article $article) { // Post::wh
     ]);
 });
 
-Route::get('/category/{category:slug}', function (Category $category) {
+Route::get('/categories/{category:slug}', function (Category $category) {
     return view('articles', [
         'articles'  => $category->posts
     ]);
