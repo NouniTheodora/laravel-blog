@@ -7,6 +7,8 @@ mysql.server start
 ## Migrations
 php artisan migrate -> first time
 php artisan migrate:fresh -> drop & migrate from scratch
+php artisan migrate:fresh --seed -> Truncate & run the seeders
+php artisan db:sedd -> Run only the seeders (Be careful, you need to truncate first in your script)
 
 php arisan make:migration create_posts_table --> create a new migration file
 

@@ -1,3 +1,4 @@
 <h1> {{$article->title}} </h1>
+<p>By <a href="">{{$article->user->name}}</a> in category <a href="/categories/{{$article->category->slug}}">{{$article->category->name}}</a></p>
 <div> {!! $article->body !!} </div> {{-- Don't escape it - I want to remain as html --}}
 <a href="/articles">Go Back</a>
