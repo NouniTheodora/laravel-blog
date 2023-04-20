@@ -31,8 +31,8 @@ class Article extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function user()
+    public function author() // If I name the function like that, it means that the foreign key is author_id
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id'); // user_id -> the foreign key
     }
 }

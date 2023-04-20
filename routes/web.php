@@ -2,6 +2,7 @@
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,7 @@ Route::get('/', function () {
 
 Route::get('/articles', function () {
     return view('articles', [
-        'articles' => Article::with('category')->get()
+        'articles' => Article::latest()->with('category', 'author')->get()
     ]);
 });
 
@@ -38,7 +39,8 @@ Route::get('/categories/{category:slug}', function (Category $category) {
     ]);
 });
 
-Route::get('/clear-cache', function() {
-    Artisan::call('cache:clear');
-    return 'Application cache has been cleared';
+Route::get('authors/{author:username}', function (User $author) {
+    return view('articles', [
+        'articles' => $author->articles
+    ]);
 });
