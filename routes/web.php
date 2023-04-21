@@ -17,13 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('articles');
+// });
 
-Route::get('/articles', function () {
+Route::get('/', function () {
     return view('articles', [
-        'articles' => Article::latest()->with('category', 'author')->get()
+        'articles' => Article::latest()->with(['category', 'author'])->get()
     ]);
 });
 
