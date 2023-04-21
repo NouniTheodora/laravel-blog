@@ -1,6 +1,5 @@
 @props(['articles'])
-
-<x-normal-article :article="$articles->first()"/>
+<x-article-feature-card :article="$articles->first()"/>
 @if ($articles->count() > 1)
     <div class="lg:grid lg:grid-cols-2">
         @foreach ($articles->skip(1) as $article)
