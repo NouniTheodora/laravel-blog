@@ -23,9 +23,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('articles', [
-        'articles' => Article::latest()->with(['category', 'author'])->get()
+        'articles' => Article::latest()->with(['category', 'author'])->get(),
+        'categories' => Category::all()
     ]);
-});
+})->name('home');
 
 Route::get('/articles/{article:slug}', function (Article $article) { // Post::where('slug',  $post)->firstOrFail();
     return view('article', [
@@ -35,12 +36,15 @@ Route::get('/articles/{article:slug}', function (Article $article) { // Post::wh
 
 Route::get('/categories/{category:slug}', function (Category $category) {
     return view('articles', [
-        'articles'  => $category->posts
+        'articles'  => $category->posts,
+        'categories'   => Category::all(),
+        'currentCategory' => $category
     ]);
 });
 
 Route::get('authors/{author:username}', function (User $author) {
     return view('articles', [
-        'articles' => $author->articles
+        'articles' => $author->articles,
+        'categories'   => Category::all()
     ]);
 });
