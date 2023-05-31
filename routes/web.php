@@ -18,21 +18,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('articles');
-// });
-
 Route::get('/', [ArticlesController::class, 'index'])->name('home');
 Route::get('/articles/{article:slug}', [ArticlesController::class, 'show']);
-
-// Route::get('/categories/{category:slug}', function (Category $category) {
-//     return view('articles', [
-//         'articles'  => $category->posts,
-//         'categories'   => Category::all(),
-//         'currentCategory' => $category
-//     ]);
-// });
-
 Route::get('authors/{author:username}', function (User $author) {
     return view('articles', [
         'articles' => $author->articles,
