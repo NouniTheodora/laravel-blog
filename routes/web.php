@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticlesController;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\User;
@@ -21,26 +22,16 @@ use Illuminate\Support\Facades\Route;
 //     return view('articles');
 // });
 
-Route::get('/', function () {
-    return view('articles', [
-        'articles' => Article::latest()->with(['category', 'author'])->get(),
-        'categories' => Category::all()
-    ]);
-})->name('home');
+Route::get('/', [ArticlesController::class, 'index'])->name('home');
+Route::get('/articles/{article:slug}', [ArticlesController::class, 'show']);
 
-Route::get('/articles/{article:slug}', function (Article $article) { // Post::where('slug',  $post)->firstOrFail();
-    return view('article', [
-        'article'   => $article
-    ]);
-});
-
-Route::get('/categories/{category:slug}', function (Category $category) {
-    return view('articles', [
-        'articles'  => $category->posts,
-        'categories'   => Category::all(),
-        'currentCategory' => $category
-    ]);
-});
+// Route::get('/categories/{category:slug}', function (Category $category) {
+//     return view('articles', [
+//         'articles'  => $category->posts,
+//         'categories'   => Category::all(),
+//         'currentCategory' => $category
+//     ]);
+// });
 
 Route::get('authors/{author:username}', function (User $author) {
     return view('articles', [
